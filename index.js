@@ -64,6 +64,7 @@ function processInput() {
     array5 = Array(length).fill('B');
 
     state = 0;
+    var index = [2, 2, 2, 2, 2];
 
     // Mengambil elemen div output untuk menampilkan hasil
     const outputDiv = document.getElementById('output');
@@ -325,7 +326,7 @@ function startUp() {
 
 function loopStartUp() {
     intervalLoop = setInterval(startUp, 500);
-    if (state == "finish") {
+    if (state === "finish") {
         clearInterval(intervalLoop)
     }
 }
