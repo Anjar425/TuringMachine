@@ -77,6 +77,11 @@ function processInput() {
         // Membersihkan konten sebelumnya di outputDiv
         outputDiv.innerHTML = '';
 
+        const titleOutput = document.createElement('h1');
+        titleOutput.classList.add('text-center', 'text-5xl', 'font-bold', 'text-white', 'pb-6');
+        titleOutput.textContent = "Result";
+        outputDiv.appendChild(titleOutput);
+
         // Fungsi untuk menampilkan array dalam kotak
         function displayArray(array, arrayLabel, title, arrayIndex) {
             // Membuat div pembungkus untuk array
