@@ -24,6 +24,10 @@
 
 
 	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/viz.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/full.render.js"></script>
+
 
 </head>
 
@@ -71,9 +75,22 @@
 		
 		
 	</div>
+
+	<section class="flex w-full h-screen no-scrollbar min-h-screen flex-col items-center py-8">
+		<h1 class="text-center text-5xl font-bold text-white pb-6">State Diagram</h1>
+		<div class="flex flex-col justify-evenly items-center gap-2 h-5/6 w-5/6 bg-gray-800/70 px-6 py-6 rounded-lg border-2 border-gray-700">
+			<div id="diagram" class="hidden bg-white rounded-lg w-full h-full"></div>
+			<div id="graph" class="w-full h-full justify-save-center bg-white rounded-lg overflow-x-scroll overscroll-x-auto "></div>
+			<div class="flex flex-rop gap-2">
+				<button onclick="openStatic()" class="bg-green-600 rounded-md px-4 py-2 text-white">Static Diagram</button>
+				<button onclick="openDynamic()" class="bg-green-600 rounded-md px-4 py-2 text-white">Dynamic Diagram</button>
+			</div>
+		</div>
+
+	</section>
 	
 
-	<section id="output" class="no-scrollbar min-h-screen flex flex-col justify-save-center items-center">
+	<section id="output" class="hidden no-scrollbar min-h-screen flex-col justify-save-center items-center">
 
 	</section>
 
@@ -81,6 +98,7 @@
 
 
 	<script src="index.js"></script>
+	<script src="diagram.js"></script>
 </body>
 
 </html>

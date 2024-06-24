@@ -71,6 +71,8 @@ function processInput() {
 
         // Mengambil elemen div output untuk menampilkan hasil
         const outputDiv = document.getElementById('output');
+        outputDiv.classList.add('flex');
+        outputDiv.classList.remove('hidden')
 
         // Membersihkan konten sebelumnya di outputDiv
         outputDiv.innerHTML = '';
