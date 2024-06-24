@@ -1,59 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-scrollbar">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Character Display</title>
-    <!-- <style>
-        .char-box {
-            display: inline-block;
-            border: 1px solid #000;
-            text-align: center;
-            transition: transform 0.3s;
-        }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Turing Machine Simulator</title>
+	<style>
+		@layer utilities {
+			.justify-save-center {
+				justify-content: safe center;
+			}
 
-        .char-box.scale-up {
-            transform: scale(1.5);
-        }
-    </style> -->
+			.no-scrollbar::-webkit-scrollbar {
+				display: none;
+			}
 
-    <style>
-        @layer utilities {
-          .justify-save-center{
-            justify-content: safe center;
-          }
-          .no-scrollbar::-webkit-scrollbar {
-            display: none;
-          }
-          .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-          }
-        }
-      </style>
-      
+			.no-scrollbar {
+				-ms-overflow-style: none;
+				scrollbar-width: none;
+			}
+		}
+	</style>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+
+	<script src="https://cdn.tailwindcss.com"></script>
 
 </head>
 
-<body class="">
-    <div class="w-screen min-h-screen flex flex-col py-8 bg-slate-900 gap-6">
-        <h1 class="text-center text-2xl font-bold text-white">Turing Machine Simulator</h1>
-        <div class="flex flex-row gap-2 self-center">
-            <input class="py-2 px-2 rounded-md" type="text" id="inputText" placeholder="Enter Language">
-            <button class="bg-green-600 rounded-md px-4 py-2 text-white" onclick="processInput()">GENERATE</button>
+<body class="bg-slate-900 no-scrollbar">
+	<div class="w-screen min-h-screen flex flex-col items-center py-8 no-scrollbar">
+		<h1 class="text-center text-5xl font-bold text-white pb-6">Turing Machine Simulator</h1>
+		<div class="w-2/3 bg-gray-800/70 px-6 py-6 rounded-lg border-2 border-gray-700">
+			<h1 class="text-2xl text-white text-center font-semibold">How To Use</h1>
+			<div>
+				<h2 class="text-xl text-white text-left font-semibold py-2">Information</h2>
+				<div class="flex flex-col px-6 gap-2 text-gray-300">
+					<p>1. Only used to work on <code>m x alogb / n</code> problems.</p>
+					<p>2. Only accepts strings "0", "1", and "X".</p>
+					<p>3. The string "0" represents the number of a variable.</p>
+					<p>4. The string "1" indicates the variable is negative.</p>
+					<p>5. The string "X" is used as a separator between variables.</p>
+					<p>6. The string template is <code>0mX0nX0a0b</code>.</p>
 
-        </div>
+				</div>
+			</div>
+			<div>
+				<h2 class="text-xl text-white text-left font-semibold py-2">Writing Input</h2>
+				<div class="flex flex-col px-6 gap-2 text-gray-300">
+					<p>1. The number of strings "X" must be 3.</p>
+					<p>2. The string "1" must be followed by the string "0" behind it.</p>
+					<p>3. The string "0" cannot be in front of the string "1".</p>
+				</div>
+			</div>
+			<div>
+				<h2 class="text-xl text-white text-left font-semibold py-2">Example Valid Input</h2>
+				<div class="flex flex-col px-6 gap-2 text-gray-300">
+					<p>1. 0000X00X00X0000 for 4 x 2log4 / 2</p>
+					<p>2. 100000X000X000X00000 for -5 x 3log5 / 3.</p>
+					<p>3. 1000X1000X00X00000 for -3 x 2log5 / -3.</p>
+				</div>
+			</div>
+		</div>
+		<div class="flex flex-row gap-2 items-center justify-save-center w-2/3 pt-6">
+			<input class=" basis-1/4 py-2 px-2 rounded-md" type="text" id="inputText" placeholder="Enter Language">
+			<button class="basis-1/6 bg-green-600 rounded-md px-4 py-2 text-white" onclick="processInput()">GENERATE</button>
+		</div>
+		<div class="flex flex-row gap-2 w-2/3 items-center justify-save-center">
+			<p id="validation" class="hidden basis-5/12 font-semibold text-red-600 p-0 text-md text-left">Input Not Valid</p>
+		</div>
+		
+		
+	</div>
+	
 
-        <div id="output" class=" flex flex-col justify-save-center items-center"> </div>
-    </div>
+	<section id="output" class="no-scrollbar min-h-screen flex flex-col justify-save-center items-center">
+
+	</section>
 
 
 
 
-    <script src="index.js"></script>
+	<script src="index.js"></script>
 </body>
 
 </html>

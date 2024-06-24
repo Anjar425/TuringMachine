@@ -51,95 +51,102 @@ function processInput() {
     // Mengambil nilai dari input
     const inputText = document.getElementById('inputText').value;
 
-    console.log(validateInput(inputText));
+    if (validateInput(inputText) == true) {
 
-    // Membagi nilai input menjadi array karakter
-    array1 = ['B', 'B', ...Array.from(inputText), 'B', 'B'];
+        document.getElementById("validation").classList.add("hidden");
 
-    // Mengisi array2 hingga array5 dengan 'B' sesuai panjang array1
-    const length = array1.length;
-    array2 = Array(length).fill('B');
-    array3 = Array(length).fill('B');
-    array4 = Array(length).fill('B');
-    array5 = Array(length).fill('B');
 
-    state = 0;
-    var index = [2, 2, 2, 2, 2];
+        // Membagi nilai input menjadi array karakter
+        array1 = ['B', 'B', ...Array.from(inputText), 'B', 'B'];
 
-    // Mengambil elemen div output untuk menampilkan hasil
-    const outputDiv = document.getElementById('output');
+        // Mengisi array2 hingga array5 dengan 'B' sesuai panjang array1
+        const length = array1.length;
+        array2 = Array(length).fill('B');
+        array3 = Array(length).fill('B');
+        array4 = Array(length).fill('B');
+        array5 = Array(length).fill('B');
 
-    // Membersihkan konten sebelumnya di outputDiv
-    outputDiv.innerHTML = '';
+        state = 0;
+        index = [2, 2, 2, 2, 2];
 
-    // Fungsi untuk menampilkan array dalam kotak
-    function displayArray(array, arrayLabel, title, arrayIndex) {
-        // Membuat div pembungkus untuk array
-        const arrayWrapper = document.createElement('div');
-        arrayWrapper.classList.add('array-wrapper', 'flex', 'flex-col', 'justify-save-center', 'w-5/6');
-        arrayWrapper.id = `${arrayLabel}-wrapper`; // Menambahkan id unik untuk pembungkus
+        // Mengambil elemen div output untuk menampilkan hasil
+        const outputDiv = document.getElementById('output');
 
-        // Membuat label untuk array
-        const label = document.createElement('div');
-        label.classList.add('array-label', 'text-white', 'text-lg', 'font-semibold', 'self-start');
-        label.textContent = title;
-        arrayWrapper.appendChild(label); // Menambahkan label ke dalam pembungkus
+        // Membersihkan konten sebelumnya di outputDiv
+        outputDiv.innerHTML = '';
 
-        // Membuat div pembungkus untuk charBox
-        const charBoxWrapper = document.createElement('div');
-        charBoxWrapper.id = 'char-box-wrapper';
-        charBoxWrapper.classList.add('char-box-wrapper', 'flex', 'flex-row', 'gap-4', 'overflow-x-scroll', 'overscroll-x-auto', 'self-center', 'w-full', 'h-24', 'items-center', 'justify-save-center', 'no-scrollbar');
-        arrayWrapper.appendChild(charBoxWrapper); // Menambahkan charBoxWrapper ke arrayWrapper
+        // Fungsi untuk menampilkan array dalam kotak
+        function displayArray(array, arrayLabel, title, arrayIndex) {
+            // Membuat div pembungkus untuk array
+            const arrayWrapper = document.createElement('div');
+            arrayWrapper.classList.add('array-wrapper', 'flex', 'flex-col', 'justify-save-center', 'w-5/6');
+            arrayWrapper.id = `${arrayLabel}-wrapper`; // Menambahkan id unik untuk pembungkus
 
-        // Menampilkan kotak untuk setiap karakter dalam array
-        array.forEach((char, idx) => {
-            const charBox = document.createElement('div');
-            charBox.classList.add('char-box', 'w-12', 'h-12', 'bg-gray-800/95', 'flex-shrink-0', 'border-gray-600/70', 'border-[1px]', 'rounded-md', 'text-center', 'text-white', 'flex', 'justify-save-center', 'items-center', 'transition', 'duration-500', 'ease-in-out');
-            charBox.id = `${arrayLabel}-charBox-${idx}`; // Menambahkan id unik
-            charBox.textContent = char;
+            // Membuat label untuk array
+            const label = document.createElement('div');
+            label.classList.add('array-label', 'text-white', 'text-lg', 'font-semibold', 'self-start');
+            label.textContent = title;
+            arrayWrapper.appendChild(label); // Menambahkan label ke dalam pembungkus
 
-            // Periksa apakah id saat ini sama dengan variabel index
-            if (idx === index[arrayIndex]) {
-                charBox.classList.add('scale-[1.4]'); // Menambahkan kelas scale-[1.4]
-            }
+            // Membuat div pembungkus untuk charBox
+            const charBoxWrapper = document.createElement('div');
+            charBoxWrapper.id = 'char-box-wrapper';
+            charBoxWrapper.classList.add('char-box-wrapper', 'flex', 'flex-row', 'gap-4', 'overflow-x-scroll', 'overscroll-x-auto', 'self-center', 'w-full', 'h-24', 'items-center', 'justify-save-center', 'no-scrollbar');
+            arrayWrapper.appendChild(charBoxWrapper); // Menambahkan charBoxWrapper ke arrayWrapper
 
-            charBoxWrapper.appendChild(charBox); // Menambahkan charBox ke dalam charBoxWrapper
-        });
+            // Menampilkan kotak untuk setiap karakter dalam array
+            array.forEach((char, idx) => {
+                const charBox = document.createElement('div');
+                charBox.classList.add('char-box', 'w-12', 'h-12', 'bg-gray-800/95', 'flex-shrink-0', 'border-gray-600/70', 'border-[1px]', 'rounded-md', 'text-center', 'text-white', 'flex', 'justify-save-center', 'items-center', 'transition', 'duration-500', 'ease-in-out');
+                charBox.id = `${arrayLabel}-charBox-${idx}`; // Menambahkan id unik
+                charBox.textContent = char;
 
-        outputDiv.appendChild(arrayWrapper); // Menambahkan arrayWrapper ke outputDiv
+                // Periksa apakah id saat ini sama dengan variabel index
+                if (idx === index[arrayIndex]) {
+                    charBox.classList.add('scale-[1.4]'); // Menambahkan kelas scale-[1.4]
+                }
+
+                charBoxWrapper.appendChild(charBox); // Menambahkan charBox ke dalam charBoxWrapper
+            });
+
+            outputDiv.appendChild(arrayWrapper); // Menambahkan arrayWrapper ke outputDiv
+        }
+
+        // Menampilkan semua array
+        displayArray(array1, 'array1', 'Input', 0);
+        displayArray(array2, 'array2', 'Logarithms 1', 1);
+        displayArray(array3, 'array3', 'Logarithms 2', 2);
+        displayArray(array4, 'array4', 'Multiplication', 3);
+        displayArray(array5, 'array5', 'Result', 4);
+
+        // Membuat div utama dengan class 'flex flex-row gap-4'
+        const divButton = document.createElement('div');
+        divButton.classList.add('flex', 'flex-row', 'gap-4');
+
+        // Membuat button Counter
+        const buttonCounter = document.createElement('button');
+        buttonCounter.classList.add('bg-green-600', 'rounded-md', 'w-24', 'py-2', 'text-white');
+        buttonCounter.textContent = 'Counter';
+        buttonCounter.addEventListener('click', startUp); // Menambahkan event listener untuk memanggil fungsi startUp()
+
+        // Membuat button Loop
+        const buttonLoop = document.createElement('button');
+        buttonLoop.classList.add('bg-green-600', 'rounded-md', 'w-24', 'py-2', 'text-white');
+        buttonLoop.textContent = 'Loop';
+        buttonLoop.addEventListener('click', loopStartUp); // Menambahkan event listener untuk memanggil fungsi loopStartUp()
+
+        // Menambahkan button Counter dan Loop ke dalam div utama
+        divButton.appendChild(buttonCounter);
+        divButton.appendChild(buttonLoop);
+
+        outputDiv.appendChild(divButton);
+
+        updateBox();
+        horizontalMove();
+        clearInterval(intervalLoop)
+    } else {
+        document.getElementById("validation").classList.remove("hidden");
     }
-
-    // Menampilkan semua array
-    displayArray(array1, 'array1', 'Input', 0);
-    displayArray(array2, 'array2', 'Logarithms 1', 1);
-    displayArray(array3, 'array3', 'Logarithms 2', 2);
-    displayArray(array4, 'array4', 'Multiplication', 3);
-    displayArray(array5, 'array5', 'Result', 4);
-
-    // Membuat div utama dengan class 'flex flex-row gap-4'
-    const divButton = document.createElement('div');
-    divButton.classList.add('flex', 'flex-row', 'gap-4');
-
-    // Membuat button Counter
-    const buttonCounter = document.createElement('button');
-    buttonCounter.classList.add('bg-green-600', 'rounded-md', 'w-24', 'py-2', 'text-white');
-    buttonCounter.textContent = 'Counter';
-    buttonCounter.addEventListener('click', startUp); // Menambahkan event listener untuk memanggil fungsi startUp()
-
-    // Membuat button Loop
-    const buttonLoop = document.createElement('button');
-    buttonLoop.classList.add('bg-green-600', 'rounded-md', 'w-24', 'py-2', 'text-white');
-    buttonLoop.textContent = 'Loop';
-    buttonLoop.addEventListener('click', loopStartUp); // Menambahkan event listener untuk memanggil fungsi loopStartUp()
-
-    // Menambahkan button Counter dan Loop ke dalam div utama
-    divButton.appendChild(buttonCounter);
-    divButton.appendChild(buttonLoop);
-
-    outputDiv.appendChild(divButton);
-
-    updateBox();
-    horizontalMove();
 }
 
 function counter(change, direction, arrayIndex) {
@@ -326,9 +333,6 @@ function startUp() {
 
 function loopStartUp() {
     intervalLoop = setInterval(startUp, 500);
-    if (state === "finish") {
-        clearInterval(intervalLoop)
-    }
 }
 
 function q0() {
@@ -721,5 +725,5 @@ function q32() {
 }
 
 function q33() {
-    state = "finish"
+    clearInterval(intervalLoop)
 }
