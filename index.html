@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-scrollbar">
+<html lang="en" class="no-scrollbar scroll-smooth">
 
 <head>
 	<meta charset="UTF-8">
@@ -44,8 +44,7 @@
 					<p>3. The string "0" represents the number of a variable.</p>
 					<p>4. The string "1" indicates the variable is negative.</p>
 					<p>5. The string "X" is used as a separator between variables.</p>
-					<p>6. The string template is <code>0mX0nX0a0b</code>.</p>
-
+					<p>6. The string template is <code>0mX0nX0aX0b</code>.</p>
 				</div>
 			</div>
 			<div>
@@ -72,8 +71,6 @@
 		<div class="flex flex-row gap-2 w-2/3 items-center justify-save-center">
 			<p id="validation" class="hidden basis-5/12 font-semibold text-red-600 p-0 text-md text-left">Input Not Valid</p>
 		</div>
-		
-		
 	</div>
 
 	<section class="flex w-full h-screen no-scrollbar min-h-screen flex-col items-center py-8">
@@ -86,18 +83,10 @@
 				<button onclick="openDynamic()" class="bg-green-600 rounded-md px-4 py-2 text-white">Dynamic Diagram</button>
 			</div>
 		</div>
-
 	</section>
 	
 
-	<section id="output" class="hidden no-scrollbar min-h-screen flex-col justify-save-center items-center">
-		
-
-
-	</section>
-
-
-
+	<section id="output" class="hidden no-scrollbar min-h-screen flex-col justify-save-center items-center"></section>
 
 	<script src="index.js"></script>
 	<script src="diagram.js"></script>

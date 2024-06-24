@@ -130,33 +130,41 @@ function processInput() {
         const divButton = document.createElement('div');
         divButton.classList.add('flex', 'flex-row', 'gap-4');
 
-        // Membuat button Counter
-        const buttonCounter = document.createElement('button');
-        buttonCounter.classList.add('bg-green-600', 'rounded-md', 'w-24', 'py-2', 'text-white');
-        buttonCounter.textContent = 'Counter';
-        buttonCounter.addEventListener('click', startUp); // Menambahkan event listener untuk memanggil fungsi startUp()
+        // Membuat button Step
+        const buttonStep = document.createElement('button');
+        buttonStep.classList.add('bg-green-600', 'rounded-md', 'w-24', 'py-2', 'text-white');
+        buttonStep.textContent = 'Step';
+        buttonStep.addEventListener('click', startUp); // Menambahkan event listener untuk memanggil fungsi startUp()
 
-        // Membuat button Loop
-        const buttonLoop = document.createElement('button');
-        buttonLoop.classList.add('bg-green-600', 'rounded-md', 'w-24', 'py-2', 'text-white');
-        buttonLoop.textContent = 'Loop';
-        buttonLoop.addEventListener('click', loopStartUp); // Menambahkan event listener untuk memanggil fungsi loopStartUp()
+        const currentState = document.createElement('p');
+        currentState.classList.add('bg-blue-600', 'rounded-md', 'w-24', 'py-2', 'text-white', 'flex', 'justify-center');
+        currentState.textContent = 'q0';
+        currentState.id = 'current-state';
+        currentState.addEventListener('click', loopStartUp); // Menambahkan event listener untuk memanggil fungsi loopStartUp()
 
-        // Menambahkan button Counter dan Loop ke dalam div utama
-        divButton.appendChild(buttonCounter);
-        divButton.appendChild(buttonLoop);
+        // Membuat button Auto
+        const buttonAuto = document.createElement('button');
+        buttonAuto.classList.add('bg-green-600', 'rounded-md', 'w-24', 'py-2', 'text-white');
+        buttonAuto.textContent = 'Auto';
+        buttonAuto.addEventListener('click', loopStartUp); // Menambahkan event listener untuk memanggil fungsi loopStartUp()
+
+        // Menambahkan button Step dan Auto ke dalam div utama
+        divButton.appendChild(buttonStep);
+        divButton.appendChild(currentState)
+        divButton.appendChild(buttonAuto);
 
         outputDiv.appendChild(divButton);
 
         updateBox();
         horizontalMove();
         clearInterval(intervalLoop)
+        window.location.hash = '#output';
     } else {
         document.getElementById("validation").classList.remove("hidden");
     }
 }
 
-function counter(change, direction, arrayIndex) {
+function step(change, direction, arrayIndex) {
     // Update current index character
     if (arrayIndex === 0) {
         array1[index[arrayIndex]] = change;
@@ -327,15 +335,13 @@ function startUp() {
         case 33:
             q33();
             break;
-        case 34:
-            q34();
-            break;
-        case 35:
-            q35();
-            break;
+            case 34:
+                q34();
+                break;
         default:
             break;
     }
+    document.getElementById('current-state').textContent = "q" + state;
 }
 
 function loopStartUp() {
@@ -344,375 +350,368 @@ function loopStartUp() {
 
 function q0() {
     if (box[0] == "0") {
-        counter(0, 1, 0);
+        step(0, 1, 0);
     } else if (box[0] == "1") {
-        counter(1, 1, 0);
+        step(1, 1, 0);
     } else {
         state = 1;
-        counter("X", 1, 0);
+        step("X", 1, 0);
     }
 }
 
 function q1() {
     if (box[0] == "0") {
-        counter(0, 1, 0);
+        step(0, 1, 0);
         state = 4;
     } else if (box[0] == "X") {
-        counter("X", 1, 0);
+        step("X", 1, 0);
         state = 2;
     } else if (box[0] == "1") {
-        counter("1", 1, 0);
+        step("1", 1, 0);
     }
 }
 
 function q2() { //finishing
-    counter("X", 1, 4);
+    step("X", 1, 4);
     state = 3
 }
 
 function q3() { //finishing
-    counter("X", 1, 4);
+    step("X", 1, 4);
     state = 33;
 }
 
 function q4() {
     if (box[0] == "0") {
-        counter(0, 1, 0);
+        step(0, 1, 0);
     } else if (box[0] == "X") {
-        counter("X", 1, 0)
+        step("X", 1, 0)
         state = 5;
     } else if (box[0] == "B") {
-        counter("B", -1, 0)
+        step("B", -1, 0)
         state = 7;
     }
 }
 
 function q5() {
     if (box[0] == "X") {
-        counter("X", 1, 0);
+        step("X", 1, 0);
         state = 2;
     } else if (box[0] == "0") {
-        counter("0", 1, 0);
+        step("0", 1, 0);
         state = 6;
     } else if (box[0] == "B") {
-        counter("B", -1, 0);
+        step("B", -1, 0);
         state = 2;
     } else if (box[0] == "1") {
-        counter("1", 1, 0)
+        step("1", 1, 0)
         state = 2;
     }
 }
 
 function q6() {
     if (box[0] == "X") {
-        counter("X", 1, 0);
+        step("X", 1, 0);
         state = 2;
     } else if (box[0] == "0") {
-        counter("0", 1, 0);
+        step("0", 1, 0);
         state = 4;
+    } else if (box[0] == "B") {
+        step("B", -1, 0);
+        state = 33;
     }
 }
 
 function q7() {
     if (box[0] == "0") {
-        counter("0", -1, 0);
+        step("0", -1, 0);
     } else if (box[0] == "X") {
-        counter("X", -1, 0);
+        step("X", -1, 0);
         state = 8;
     }
 }
 
 function q8() {
     if (box[0] == "0") {
-        counter("0", -1, 0);
+        step("0", -1, 0);
     } else if (box[0] == "X") {
-        counter("X", 1, 0);
+        step("X", 1, 0);
         state = 9;
     }
 }
 
 function q9() {
     if (box[0] == "0") {
-        counter("B", 1, 0);
+        step("B", 1, 0);
         state = 10;
     } else if (box[0] == "X") {
-        counter("X", -1, 0);
-        counter("0", 1, 1);
+        step("X", -1, 0);
+        step("0", 1, 1);
         state = 16;
     }
 }
 
 function q10() {
     if (box[0] == "0") {
-        counter("0", 1, 0);
+        step("0", 1, 0);
     } else if (box[0] == "X") {
-        counter("X", 1, 0);
+        step("X", 1, 0);
         state = 11;
     }
 }
 
 function q11() {
     if (box[0] == "0") {
-        counter("0", 1, 0);
+        step("0", 1, 0);
         state = 12;
     } else if (box[0] == "B") {
-        counter("B", -1, 0);
+        step("B", -1, 0);
         state = 17;
     }
 }
 
 function q12() {
     if (box[0] == "0") {
-        counter("0", 1, 0);
+        step("0", 1, 0);
     } else if (box[0] == "B") {
-        counter("B", -1, 0);
-        state = 13; // Mengubah state dari 12 menjadi 13
+        step("B", -1, 0);
+        state = 13; 
     }
 }
 
 function q13() {
     if (box[0] == "0") {
-        counter("B", -1, 0);
-        state = 14; // Mengubah state dari 13 menjadi 14
+        step("B", -1, 0);
+        state = 14; 
     } else if (box[0] == "B") {
-        counter("B", 1, 0);
+        step("B", 1, 0);
     }
 }
 
 function q14() {
     if (box[0] == "0") {
-        counter("0", -1, 0);
+        step("0", -1, 0);
     } else if (box[0] == "X") {
-        counter("X", -1, 0);
-        state = 15; // Mengubah state dari 14 menjadi 15
+        step("X", -1, 0);
+        state = 15; 
     }
 }
 
 function q15() {
     if (box[0] == "0") {
-        counter("0", -1, 0);
+        step("0", -1, 0);
     } else if (box[0] == "B") {
-        counter("B", 1, 0);
+        step("B", 1, 0);
         state = 9;
     }
 }
 
 function q16() {
     if (box[0] == "B") {
-        counter("0", -1, 0);
+        step("0", -1, 0);
     } else if (box[0] == "X") {
-        counter("X", 1, 0);
+        step("X", 1, 0);
         state = 9;
     }
 }
 
 function q17() {
     if (box[0] == "X") {
-        counter("X", -1, 0);
-        counter("X", -1, 1);
-        counter("0", 1, 2);
-        state = 18; // Mengubah state dari 17 menjadi 18
+        step("X", -1, 0);
+        step("X", -1, 1);
+        step("0", 1, 2);
+        state = 18; 
     }
 }
 
 function q18() {
     if ((box[0] == "0" || box[0] == "B") && box[1] == "0") {
-        counter("0", -1, 0);
-        counter("0", -1, 1);
+        step("0", -1, 0);
     } else if (box[0] == "B" && box[1] == "0") {
-        counter("0", -1, 0);
+        step("0", -1, 0);
     } else if (box[1] == "0") {
-        counter("0", -1, 1);
+        step("0", -1, 1);
     } else if (box[0] == "X" && box[1] == "B") {
-        counter("X", 1, 0);
-        counter("B", 1, 1);
-        state = 19; // Mengubah state dari 18 menjadi 19
+        step("X", 1, 0);
+        step("B", 1, 1);
+        state = 19; 
+    } else     if(box[0] == "B" && box[1] == "B"){
+        step("B", -1, 2);
+        state = 33;
     }
 }
 
 function q19() {
     if (box[0] == "0" && box[1] == "0") {
-        counter("B", 1, 0);
-        counter("B", 1, 1);
+        step("B", 1, 0);
+        step("B", 1, 1);
     } else if (box[0] == "X" && box[1] == "0") {
-        counter("0", 1, 1);
+        step("0", 1, 1);
         state = 20;
     } else if (box[0] == "0" && box[1] == "X") {
-        counter("X", 1, 1);
+        step("X", 1, 1);
         state = 24;
     } else if (box[0] == "X" && box[1] == "X") {
-        counter("X", 1, 1);
+        step("X", 1, 1);
         state = 21;
     }
 }
 
 function q20() {
     if (box[0] == "X" && box[1] == "0") {
-        counter("0", 1, 1);
+        step("0", 1, 1);
     } else if (box[0] == "X" && box[1] == "X") {
-        counter("X", 1, 1);
+        step("X", 1, 1);
         state = 21;
     }
 }
 
 function q21() {
     if (box[0] == "X" && box[1] == "B") {
-        counter("0", -1, 1);
+        step("0", -1, 1);
         state = 22;
     } else if (box[0] == "X" && box[1] == "0") {
-        counter("0", 1, 1);
+        step("0", 1, 1);
     }
 }
 
 function q22() {
     if (box[0] == "X" && box[1] == "X") {
-        counter("X", -1, 0);
-        counter("X", -1, 1);
+        step("X", -1, 0);
+        step("X", -1, 1);
         state = 23;
     } else if (box[0] == "X" && box[1] == "0") {
-        counter("0", -1, 1);
+        step("0", -1, 1);
     }
-    // else if (box[0] == "B" && box[1] == "0") {
-    //     counter("0", -1, 0);
-    //     counter("0", -1, 1);
-    // } else if (box[0] == "X" && box[1] == "B") {
-    //     counter("X", 1, 0);
-    //     counter("B", 1, 1);
-    //     state = 19;
-    // } else if (box[0] == "B" && box[1] == "B") {
-    //     counter("B", 1, 0);
-    //     counter("B", 1, 1);
-    //     state = 19;
-    // }
 }
 
 function q23() {
     if (box[0] == "B") {
-        counter("0", -1, 0);
+        step("0", -1, 0);
     } else if (box[1] == "0") {
-        counter("0", -1, 1);
+        step("0", -1, 1);
     } else if (box[0] == "X" && box[1] == "B") {
-        counter("X", 1, 0);
-        counter("B", 1, 1);
+        step("X", 1, 0);
+        step("B", 1, 1);
         state = 19;
     }
 }
 
 function q24() {
     if (box[1] == "0") {
-        counter("0", 1, 1);
+        step("0", 1, 1);
         state = 25;
     } else if (box[2] == "B") {
-        counter("B", -1, 2);
-        counter("0", -1, 0);
+        step("B", -1, 2);
+        step("0", -1, 0);
         state = 27;
     }
 }
 
 function q25() {
     if (box[1] == "0") {
-        counter("0", 1, 1);
+        step("0", 1, 1);
     } else if (box[1] == "B") {
-        counter("X", -1, 1);
-        counter("0", 1, 2);
+        step("X", -1, 1);
+        step("0", 1, 2);
         state = 26;
     }
 }
 
 function q26() {
     if (box[0] == "0" && box[1] == "0") {
-        counter("0", -1, 0);
-        counter("0", -1, 1);
+        step("0", -1, 0);
+        step("0", -1, 1);
     } else if (box[0] == "B") {
-        counter("0", -1, 0);
+        step("0", -1, 0);
     } else if (box[1] == "0") {
-        counter("0", -1, 1);
+        step("0", -1, 1);
     } else if (box[0] == "X" && box[1] == "X") {
-        counter("X", 1, 0);
-        counter("X", 1, 1);
+        step("X", 1, 0);
+        step("X", 1, 1);
         state = 19;
     }
 }
 
 function q27() {
     if (box[0] == "B") {
-        counter("0", -1, 0);
+        step("0", -1, 0);
     } else if (box[2] == "0") {
-        counter("0", -1, 2);
+        step("0", -1, 2);
     } else if (box[0] == "X" && box[2] == "B") {
-        counter("B", 1, 2);
-        counter("X", -1, 0);
+        step("B", 1, 2);
+        step("X", -1, 0);
         state = 28;
     }
 }
 
 function q28() {
     if (box[0] == "0") {
-        counter("0", -1, 0);
+        step("0", -1, 0);
     } else if (box[0] == "1") {
-        counter("1", -1, 0);
+        step("1", -1, 0);
     } else if (box[0] == "X") {
-        counter("X", -1, 0);
+        step("X", -1, 0);
     } else if (box[0] == "B") {
-        counter("B", 1, 0);
+        step("B", 1, 0);
         state = 29;
     }
 }
 
 function q29() {
     if (box[0] == "1" && box[2] == "0") {
-        counter("1", 1, 0);
-        counter("1", 1, 3);
+        step("1", 1, 0);
+        step("1", 1, 3);
     } else if (box[0] == "0" && box[2] == "0") {
-        counter("0", 1, 2);
-        counter("0", 1, 3);
+        step("0", 1, 2);
+        step("0", 1, 3);
     } else if (box[0] == "0" && box[2] == "B") {
-        counter("B", 0, 0);
-        counter("B", -1, 2);
+        step("B", 0, 0);
+        step("B", -1, 2);
     } else if (box[0] == "B" && box[2] == "0") {
-        counter("0", -1, 2);
+        step("0", -1, 2);
     } else if (box[0] == "B" && box[2] == "B") {
-        counter("B", 1, 0);
-        counter("B", 1, 2);
+        step("B", 1, 0);
+        step("B", 1, 2);
     } else if (box[0] == "X" && box[2] == "0") {
-        counter("B", -1, 3);
+        step("B", -1, 3);
         state = 30;
     }
 }
 
 function q30() {
     if (box[3] == "0") {
-        counter("0", -1, 3);
+        step("0", -1, 3);
     } else if (box[0] == "1") {
-        counter("1", -1, 0);
+        step("1", -1, 0);
     } else if (box[3] == "1") {
-        counter("1", -1, 3);
+        step("1", -1, 3);
     } else if (box[0] == "X" && box[3] == "B") {
-        counter("X", 1, 0);
-        counter("B", 1, 3);
+        step("X", 1, 0);
+        step("B", 1, 3);
         state = 31;
     }
 }
 
 function q31() {
     if (box[0] == "1" && box[3] == "0") {
-        counter("1", 1, 0);
-        counter("1", 1, 4);
+        step("1", 1, 0);
+        step("1", 1, 4);
     } else if (box[0] == "0" && box[3] == "1") {
-        counter("1", 1, 3);
-        counter("1", 1, 4);
+        step("1", 1, 3);
+        step("1", 1, 4);
     } else if (box[0] == "1" && box[3] == "1") {
-        counter("1", 1, 0);
-        counter("1", 1, 3);
+        step("1", 1, 0);
+        step("1", 1, 3);
     } else if (box[0] == "0" && box[3] == "0") {
-        counter("B", 1, 0);
-        counter("B", 1, 3);
+        step("B", 1, 0);
+        step("B", 1, 3);
     } else if (box[0] == "X" && box[3] == "0") {
-        counter("X", -1, 0);
-        counter("0", 1, 4);
+        step("X", -1, 0);
+        step("0", 1, 4);
         state = 32;
     } else if (box[0] == "X" && box[3] == "B") {
-        counter("0", 1, 4);
+        step("0", 1, 4);
         state = 33;
     } else if ((box[0] == "0" || box[0] == "1") && box[3] == "B") {
         state = 33;
@@ -721,12 +720,12 @@ function q31() {
 
 function q32() {
     if (box[0] == "B" && box[3] == "0") {
-        counter("0", -1, 0);
+        step("0", -1, 0);
     } else if (box[0] == "1" && box[3] == "0") {
-        counter("1", 1, 0);
+        step("1", 1, 0);
         state = 31;
     } else if (box[0] == "X" && box[3] == "0") {
-        counter("X", 1, 0);
+        step("X", 1, 0);
         state = 31;
     }
 }
